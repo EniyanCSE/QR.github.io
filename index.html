@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>QR & Barcode Scanner</title>
+    <title>QR Code Scanner</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Adding Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
@@ -31,9 +31,10 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-4 mb-4 text-center">QR & Barcode Scanner - TEAM MEDIA</h1>
+        <h1 class="mt-4 mb-4 text-center">QR Scanner - TEAM MEDIA Test</h1>
         <div class="text-center mb-4">
-            <button class="btn btn-primary mr-2" onclick="startScanner()">Scan QR/Barcode</button>
+            
+            <button class="btn btn-primary mr-2" onclick="startScanner()">Scan QR Code</button>
             <button class="btn btn-secondary" onclick="checkScanner()">Check</button>
         </div>
         <div class="form-group">
@@ -47,13 +48,9 @@
     </div>
     
     <!-- Adding Bootstrap JS and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-
     <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
-    <script>
-        const codeReader = new ZXing.BrowserMultiFormatReader();
+        <script>
+        const codeReader = new ZXing.BrowserQRCodeReader();
         const decodedText = document.getElementById("decodedText");
         const video = document.getElementById("video");
         const videoBox = document.getElementById("video-box");
@@ -78,7 +75,7 @@
                     console.error(error);
                 });
         }
-        function checkScanner(){
+ function checkScanner(){
             if(temp.value == "CB.EN.U4CSE21435" || temp.value == "CB.EN.U4CSE21446")
             {
                 alert("Success");
@@ -131,3 +128,10 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
