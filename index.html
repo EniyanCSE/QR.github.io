@@ -3,6 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>QR Code Scanner</title>
+    <style>
+        #video-container {
+            position: relative;
+            width: 50%;
+            margin: 0 auto;
+        }
+        #video {
+            width: 100%;
+        }
+        #video-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 50%;
+            height: 50%;
+            border: 2px solid white;
+        }
+    </style>
 </head>
 <body>
     <h1>QR Code Scanner</h1>
@@ -13,16 +34,30 @@
         <label for="decodedText">Decoded Text:</label>
         <input type="text" id="decodedText" readonly>
     </div>
+    <div id="video-container">
+        <video id="video"></video>
+        <div id="video-box"></div>
+    </div>
     <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
     <script>
         const codeReader = new ZXing.BrowserQRCodeReader();
         const decodedText = document.getElementById("decodedText");
+        const video = document.getElementById("video");
+        const videoBox = document.getElementById("video-box");
         function startScanner() {
             codeReader
-                .decodeOnceFromVideoDevice(undefined, "video")
-                .then(result => {
-                    decodedText.value = result.text;
-                })
+                .decodeFromVideoDevice(undefined, "video", (result, error) => {
+                    if (result) {
+                        decodedText.value = result.text;
+                        codeReader.reset();
+                        video.srcObject.getTracks().forEach(track => {
+                            track.stop();
+                        });
+                    }
+                    if (error) {
+                        console.error(error);
+                    }
+                }, videoBox)
                 .catch(error => {
                     console.error(error);
                 });
